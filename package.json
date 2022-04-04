@@ -1,0 +1,24 @@
+{
+  "name": "react_app",
+  "version": "1.0.0",
+  "description": "react app",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run lite",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanmteran/react_app.git"
+  },
+  "author": "teran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juanmteran/react_app/issues"
+  },
+  "homepage": "https://github.com/juanmteran/react_app#readme",
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
