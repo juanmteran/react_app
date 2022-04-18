@@ -3,13 +3,11 @@ import {
   Card,
   CardImg,
   CardImgOverlay,
-  CardText,
-  CardBody,
   CardTitle,
 } from "reactstrap";
-import DishDetail from "./DishdetailComponent";
 
 class Menu extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
     };
