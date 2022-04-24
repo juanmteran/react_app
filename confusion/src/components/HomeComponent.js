@@ -60,7 +60,6 @@ import { Card,} from 'react-bootstrap';
                 <div className="col-12 col-md m-1">
                     <RenderCardDish item={props.leader}/>
                 </div>
-                
             </div>
         </div>
         );

@@ -10,6 +10,8 @@ import Contact from './ContactComponent';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
+import DishDetail from './DishdetailComponent'
+import About from './AboutComponent';
 
 
 class Main extends Component {
@@ -45,14 +47,36 @@ const HomePage = () => {
   );
 
     }
+
+
+    const ContactPage =()=>{
+      return(
+        <Contact/>
+      );
+    }
+
+    const AboutPage =()=>{
+      return(
+        <About leaders={this.state.leaders}/>
+      );
+    }
+
+    const DishWithId = (match) => {
+      return(
+        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}/>
+      );
+    };
+
           return (
             <div>
               <Header />
               <Routes>
                 <Route path='/home' element={<HomePage/>}/>
                 <Route path='/contactus' element={<Contact/>}/>
-                <Route path='/menu' element={<Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)}/>}/>
+                <Route exact path='/menu' element={<Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)}/>}/>
+                <Route path='/menu:dishId' element={<DishWithId />} />
                 <Route path='/' element={<Navigate to='/home'/>}/>
+                <Route path='/aboutus' element={<AboutPage/>}/>
               </Routes>
               <Footer />
             </div>
