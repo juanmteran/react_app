@@ -4,7 +4,12 @@ import {DISHES} from '../shared/dishes';
 import { Component } from 'react';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import DishDetail from "./DishdetailComponent";
+import {Routes, Route, Navigate} from 'react-router-dom';
+import Home from './HomeComponent'
+import Contact from './ContactComponent';
+import { COMMENTS } from '../shared/comments';
+import { PROMOTIONS } from '../shared/promotions';
+import { LEADERS } from '../shared/leaders';
 
 
 class Main extends Component {
@@ -12,22 +17,43 @@ class Main extends Component {
     super(props);
     this.state = {
       dishes: DISHES,
-      selectedDish: null
+      comments: COMMENTS,
+      promotions: PROMOTIONS,
+      leaders: LEADERS,
+      
     };
   }
 
-  onDishSelect(dishId) {
+/*  onDishSelect(dishId) {
     this.setState({
       selectedDish: dishId,
     });
   }
+*/
 
-  render() {
+
+//falta actualizar
+render() {
+
+const HomePage = () => {
+  return(
+      <Home 
+            dish={this.state.dishes.filter((dish) => dish.featured)[0]}
+            promotion={this.state.promotions.filter((promo) => promo.featured)[0]}
+            leader={this.state.leaders.filter((leader) => leader.featured)[0]} 
+      />
+  );
+
+    }
           return (
             <div>
               <Header />
-              <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
-              <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}></DishDetail>
+              <Routes>
+                <Route path='/home' element={<HomePage/>}/>
+                <Route path='/contactus' element={<Contact/>}/>
+                <Route path='/menu' element={<Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)}/>}/>
+                <Route path='/' element={<Navigate to='/home'/>}/>
+              </Routes>
               <Footer />
             </div>
           );
@@ -35,3 +61,10 @@ class Main extends Component {
 }
 
 export default Main;
+
+/*
+<Route path='/menu' element={<Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)}/>}/>
+                <Route/><Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
+              
+              <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}></DishDetail>
+              */
