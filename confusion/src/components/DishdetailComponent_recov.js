@@ -68,7 +68,7 @@ import {Link} from "react-router-dom";
 
     if (dish == null) {
       return <div></div>;
-    }; 
+    } 
 
     return (
       <div className="container">
