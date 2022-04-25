@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Contact extends Component {
@@ -14,10 +14,17 @@ class Contact extends Component {
             agree:false,
             contacType:'Tel.',
             message:'',
+            touched: {
+                firstname: false,
+                lastname: false,
+                telnum: false,
+                email: false
+            }
 
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
     }
 
     handleInputChange(event){
@@ -38,7 +45,31 @@ class Contact extends Component {
         alert("current state is:" + JSON.stringify(this.state))
         event.preventDefault();
     }
+
+    handleBlur = (field) => (evt) => {
+        this.setState({
+            touched: { ...this.state.touched, [field]:true}
+        });        
+    }
+
+    validate(firstname, lastname, telnum, email) {
+        const errors = {
+            firstname:'',
+            lastname:'',
+            telnum:'',
+            email:''
+        };
+        if(this.state.touched.firstname && firstname.length <3)
+        errors.firstname = 'Firstname should have more than 3 chars';
+        else if(this.state.touched.firstname && firstname.length > 10 )
+        errors.firstname = 'Firstname should have less than 10 chars';
+
+        return errors;
+
+    }
+
     render(){
+        const errors = this.validate(this.state.firstname)
         return(
         
             <div className="container">
@@ -87,7 +118,8 @@ class Contact extends Component {
                             <FormGroup row>
                                 <Label htmlfor='firstname' md={2}>First Name</Label>
                                 <Col md={10}>
-                                    <Input type='text' id='firstname' name='firstname' placeholder=' First Name' value={this.state.firstname} onChange={this.handleInputChange} ></Input>
+                                    <Input type='text' id='firstname' name='firstname' placeholder=' First Name' value={this.state.firstname} valid={errors.firstname === ''} invalid={errors.firstname !== ''} onChange={this.handleInputChange} onBlur={this.handleBlur('firstname')} ></Input>
+                                    <FormFeedback>{errors.firstname}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
